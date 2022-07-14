@@ -14,10 +14,12 @@ class CreatePermissionsTable extends Migration
     public function up()
     {
         Schema::create('permissions', function (Blueprint $table) {
-            $table->bigInteger('id')->primary();
+            $table->bigIncrements('id');
             $table->char('name');
             $table->char('url');
             $table->bigInteger('parent_id')->nullable()->default(0);
+            $table->date('created_at')->nullable();
+            $table->date('updated_at')->nullable();
         });
     }
 
