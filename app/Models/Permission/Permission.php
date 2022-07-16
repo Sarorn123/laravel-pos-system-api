@@ -11,7 +11,7 @@ class Permission extends Model{
 
     protected $primaryKey = "id";
     protected $table = "permissions";
-    protected $fillable = ['name', "url"];
+    protected $guarded = ['id'];
 
     public static function getAllChildrenbyParentId($parent_id){
         return Permission::where('parent_id', $parent_id)->get();

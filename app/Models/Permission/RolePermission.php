@@ -11,5 +11,5 @@ class RolePermission extends Model
 
     protected $primaryKey = "id";
     protected $table = "role_permission";
-    protected $fillable = ['role_id', "permission_id"];
+    protected $guarded = ['id'];
 }
