@@ -7,6 +7,7 @@ use App\Models\Role\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Permission\PermissionResource;
+use App\Models\Employee\Employee;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use App\Models\Permission\RolePermission;
@@ -20,10 +21,10 @@ class AuthController extends Controller
         $request->validate([
             "email" => "required|email",
             "password" => "required",
+            "role_id" => "required",
         ]);
         $data['email'] = $request->email;
         $data['password'] = Hash::make($request->password);
-        $data['role_id'] = 1;
 
         if(User::where('email' , $request->email)->first()){
             return response([
@@ -34,7 +35,7 @@ class AuthController extends Controller
 
         $user = User::create($data);
 
-        UserDetail::create(["user_id" => $user->id]);
+        Employee::create(["user_id" => $user->id]);
 
         return response([
             "data" => "resgister successfully",
@@ -60,10 +61,10 @@ class AuthController extends Controller
         if ($user) {
 
             $accessToken = $user->createToken('authToken')->plainTextToken;
-            $userDetail = UserDetail::where('user_id', $user->id)->first();
+            $employee = Employee::where('user_id', $user->id)->first();
             $role = Role::find($user->role_id);
 
-            $data['user'] = $userDetail;
+            $data['user'] = $employee;
             $data['role'] = [
                 "id" => $role ? $role->id : "",
                 "name" =>$role ? $role->name : "",
