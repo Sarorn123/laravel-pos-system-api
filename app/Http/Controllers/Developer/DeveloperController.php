@@ -13,7 +13,10 @@ class DeveloperController extends Controller
     public static function addRole(Request $request){
         $role = Role::create($request->all());
         if($role){
-            return response(["message" => "Added"]);
+            return response([
+                "data" => $role,
+                "message" => "Added"
+            ]);
         }
     }
 

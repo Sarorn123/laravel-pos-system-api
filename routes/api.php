@@ -33,6 +33,8 @@ Route::group(['middleware' => ['apiKey']], function () {
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
 
+        Route::get('get-user-login-by-token', [AuthController::class, 'getUserLoginByToken']);
+
         // End Point For Admin
         Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
 
