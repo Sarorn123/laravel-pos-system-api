@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSuppliersTable extends Migration
+class CreatePermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateSuppliersTable extends Migration
      */
     public function up()
     {
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('name');
-            $table->char('phone')->nullable();
-            $table->char('email')->nullable();
-            $table->char('social_media')->nullable();
-            $table->char('description', 500)->nullable();
-            $table->char('address')->nullable();
+            $table->string('name');
+            $table->string('url');
+            $table->bigInteger('parent_id')->nullable()->default(0);
             $table->date('created_at')->nullable();
             $table->date('updated_at')->nullable();
         });
@@ -33,6 +30,6 @@ class CreateSuppliersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('permissions');
     }
 }

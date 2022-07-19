@@ -16,14 +16,15 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->timestamps();
-            $table->bigInteger('category_id')->nullable();
-            $table->bigInteger('in_stock_price')->nullable();
-            $table->bigInteger('sell_price')->nullable();
-            $table->bigInteger('in_stock')->nullable();
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
+            $table->bigInteger('category_id');
+            $table->float('in_stock_price', 0, 0);
+            $table->float('sell_price', 0, 0);
+            $table->bigInteger('in_stock');
             $table->date('in_stock_date')->nullable();
             $table->date('out_stock_date')->nullable();
-            $table->text('description')->nullable();
+            $table->string('description', 500)->nullable();
             $table->float('discount', 0, 0)->nullable()->default(0);
             $table->bigInteger('supplier_id')->nullable();
         });
