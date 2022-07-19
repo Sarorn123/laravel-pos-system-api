@@ -7,6 +7,7 @@ use App\Models\Permission\Permission;
 use App\Models\Permission\RolePermission;
 use App\Models\Role\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DeveloperController extends Controller
 {
@@ -21,6 +22,9 @@ class DeveloperController extends Controller
     }
 
     public static function addPermission(Request $request){
+
+        Log::error($request);
+
         $permission = Permission::create($request->all());
         if($permission){
             return response(["message" => "Added"]);
